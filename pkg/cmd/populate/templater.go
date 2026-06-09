@@ -256,7 +256,7 @@ func (o *Options) getExternalSecretValue(lookupSecretName, lookupKey, namespace 
 	var secret string
 	lookupSecret, ns := ResolveResourceNames(lookupSecretName, namespace)
 
-	externalSecret, err := o.Options.ExternalSecretByName(lookupSecret)
+	externalSecret, err := o.ExternalSecretByName(lookupSecret)
 	if err != nil {
 		log.Logger().Debugf("failed to find referenced External Secret name %s", lookupSecret)
 		return ""

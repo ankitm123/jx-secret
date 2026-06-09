@@ -109,7 +109,7 @@ func (o *Options) WaitCheck() (bool, error) {
 				if i > 0 {
 					buf.WriteString(", ")
 				}
-				buf.WriteString(fmt.Sprintf("key %s missing properties: %s", e.Key, strings.Join(e.Properties, ", ")))
+				fmt.Fprintf(&buf, "key %s missing properties: %s", e.Key, strings.Join(e.Properties, ", "))
 			}
 			o.logMessage(name, termcolor.ColorWarning(buf.String()))
 		} else {

@@ -65,7 +65,7 @@ func NewCmdReplicate() (*cobra.Command, *Options) {
 			helper.CheckErr(err)
 		},
 	}
-	o.BaseOptions.AddBaseFlags(cmd)
+	o.AddBaseFlags(cmd)
 
 	cmd.Flags().StringVarP(&o.File, "file", "f", "t", "the ExternalSecret to replicate")
 	cmd.Flags().StringVarP(&o.Selector, "selector", "s", "", "defines the label selector to find the ExternalSecret resources to replicate")
@@ -77,7 +77,7 @@ func NewCmdReplicate() (*cobra.Command, *Options) {
 }
 
 func (o *Options) Run() error {
-	err := o.BaseOptions.Validate()
+	err := o.Validate()
 	if err != nil {
 		return errors.Wrapf(err, "failed to validate options")
 	}

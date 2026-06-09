@@ -58,7 +58,7 @@ func NewCmdVaultShell() (*cobra.Command, *Options) {
 		},
 	}
 
-	o.Options.AddFlags(cmd)
+	o.AddFlags(cmd)
 	return cmd, o
 }
 

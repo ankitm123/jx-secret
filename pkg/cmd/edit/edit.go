@@ -164,7 +164,7 @@ func (o *Options) Run() error {
 
 				// fix issue where strings with newlines were being escaped when being marshalled later, so let's ensure newlines are used
 				// see https://stackoverflow.com/questions/32042989/go-lang-differentiate-n-and-line-break
-				value = strings.Replace(value, `\n`, "\n", -1)
+				value = strings.ReplaceAll(value, `\n`, "\n")
 
 				keyProperties.Properties = append(keyProperties.Properties, editor.PropertyValue{
 					Property: property,

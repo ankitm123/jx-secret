@@ -74,8 +74,8 @@ func NewCmdSecretConvert() (*cobra.Command, *Options) {
 			helper.CheckErr(err)
 		},
 	}
-	o.BaseOptions.AddBaseFlags(cmd)
-	o.Filter.AddSelectorFlags(cmd)
+	o.AddBaseFlags(cmd)
+	o.AddSelectorFlags(cmd)
 
 	cmd.Flags().StringVarP(&o.Dir, "dir", "d", ".", "the directory to look for the secret mapping files and version stream")
 	cmd.Flags().StringVarP(&o.SourceDir, "source-dir", "", "", "the source directory to recursively look for the *.yaml or *.yml files to convert. If not specified defaults to 'config-root' in the dir")
@@ -94,7 +94,7 @@ func (o *Options) Validate() error {
 	if err != nil {
 		return errors.Wrapf(err, "failed to validate options")
 	}
-	o.Filter.Kinds = []string{"v1/Secret"}
+	o.Kinds = []string{"v1/Secret"}
 	dir := o.Dir
 
 	if o.SourceDir == "" {
@@ -186,7 +186,7 @@ func (o *Options) ModifyYAML(node *yaml.RNode, path string) (ModifyResults, erro
 	}
 
 	if secret.BackendType == "" {
-		secret.BackendType = o.SecretMapping.Spec.Defaults.BackendType
+		secret.BackendType = o.SecretMapping.Spec.BackendType
 	}
 	err = kyamls.SetStringValue(node, path, string(secret.BackendType), "spec", "backendType")
 	if err != nil {
@@ -194,7 +194,7 @@ func (o *Options) ModifyYAML(node *yaml.RNode, path string) (ModifyResults, erro
 	}
 
 	if secret.RoleArn == "" {
-		secret.RoleArn = o.SecretMapping.Spec.Defaults.RoleArn
+		secret.RoleArn = o.SecretMapping.Spec.RoleArn
 	}
 	if secret.RoleArn != "" {
 		err = kyamls.SetStringValue(node, path, secret.RoleArn, "spec", "roleArn")
@@ -203,7 +203,7 @@ func (o *Options) ModifyYAML(node *yaml.RNode, path string) (ModifyResults, erro
 		}
 	}
 	if secret.Region == "" {
-		secret.Region = o.SecretMapping.Spec.Defaults.Region
+		secret.Region = o.SecretMapping.Spec.Region
 	}
 	if secret.Region != "" {
 		err = kyamls.SetStringValue(node, path, secret.Region, "spec", "region")
@@ -222,8 +222,8 @@ func (o *Options) ModifyYAML(node *yaml.RNode, path string) (ModifyResults, erro
 			if err != nil {
 				return results, err
 			}
-		} else if o.SecretMapping.Spec.Defaults.GcpSecretsManager.ProjectID != "" {
-			err = kyamls.SetStringValue(node, path, o.SecretMapping.Spec.Defaults.GcpSecretsManager.ProjectID, "spec", "projectId")
+		} else if o.SecretMapping.Spec.GcpSecretsManager.ProjectID != "" {
+			err = kyamls.SetStringValue(node, path, o.SecretMapping.Spec.GcpSecretsManager.ProjectID, "spec", "projectId")
 			if err != nil {
 				return results, err
 			}
@@ -234,8 +234,8 @@ func (o *Options) ModifyYAML(node *yaml.RNode, path string) (ModifyResults, erro
 		// if we have a unique prefix for the specific secret or a default one then set it to use as a gsm secret prefix later
 		if secret.GcpSecretsManager.UniquePrefix != "" {
 			o.Prefix = secret.GcpSecretsManager.UniquePrefix
-		} else if o.SecretMapping.Spec.Defaults.GcpSecretsManager.UniquePrefix != "" {
-			o.Prefix = o.SecretMapping.Spec.Defaults.GcpSecretsManager.UniquePrefix
+		} else if o.SecretMapping.Spec.GcpSecretsManager.UniquePrefix != "" {
+			o.Prefix = o.SecretMapping.Spec.GcpSecretsManager.UniquePrefix
 		}
 
 	case v1alpha1.BackendTypeVault:
@@ -261,8 +261,8 @@ func (o *Options) ModifyYAML(node *yaml.RNode, path string) (ModifyResults, erro
 			if err != nil {
 				return results, err
 			}
-		} else if o.SecretMapping.Spec.Defaults.AzureKeyVaultConfig != nil && o.SecretMapping.Spec.Defaults.AzureKeyVaultConfig.KeyVaultName != "" {
-			err = kyamls.SetStringValue(node, path, o.SecretMapping.Spec.Defaults.AzureKeyVaultConfig.KeyVaultName, "spec", "keyVaultName")
+		} else if o.SecretMapping.Spec.AzureKeyVaultConfig != nil && o.SecretMapping.Spec.AzureKeyVaultConfig.KeyVaultName != "" {
+			err = kyamls.SetStringValue(node, path, o.SecretMapping.Spec.AzureKeyVaultConfig.KeyVaultName, "spec", "keyVaultName")
 			if err != nil {
 				return results, err
 			}
@@ -279,8 +279,8 @@ func (o *Options) ModifyYAML(node *yaml.RNode, path string) (ModifyResults, erro
 			if err != nil {
 				return results, err
 			}
-		} else if o.SecretMapping.Spec.Defaults.AwsSecretsManager.Region != "" {
-			err = kyamls.SetStringValue(node, path, o.SecretMapping.Spec.Defaults.AwsSecretsManager.Region, "spec", "region")
+		} else if o.SecretMapping.Spec.AwsSecretsManager.Region != "" {
+			err = kyamls.SetStringValue(node, path, o.SecretMapping.Spec.AwsSecretsManager.Region, "spec", "region")
 			if err != nil {
 				return results, err
 			}
@@ -509,7 +509,7 @@ func (o *Options) modifyDefault(rNode *yaml.RNode, field, secretName, path strin
 			isBinary = mapping.IsBinary
 		}
 		if versionStage == "" {
-			versionStage = o.SecretMapping.Spec.Defaults.VersionStage
+			versionStage = o.SecretMapping.Spec.VersionStage
 		}
 	}
 

@@ -90,7 +90,7 @@ func NewCmdPopulate() (*cobra.Command, *Options) {
 	cmd.Flags().DurationVarP(&o.WaitDuration, "wait", "w", 2*time.Hour, "the maximum time period to wait for the vault pod to be ready if using the vault backendType")
 	cmd.Flags().StringVarP(&o.SecretNamespace, "secret-namespace", "", vaults.DefaultVaultNamespace, "the namespace in which secret infrastructure resides such as Hashicorp Vault")
 
-	o.Options.AddFlags(cmd)
+	o.AddFlags(cmd)
 	return cmd, o
 }
 

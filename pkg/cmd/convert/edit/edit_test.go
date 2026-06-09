@@ -33,8 +33,8 @@ func TestCmdSecretsMappingEdit(t *testing.T) {
 					assert.Equal(t, "latest", secret.GcpSecretsManager.Version, "secret.GcpSecretsManager.Version")
 				}
 
-				assert.Equal(t, "foo", sm.Spec.Defaults.GcpSecretsManager.ProjectID, "sm.Spec.Defaults.GcpSecretsManager.ProjectID")
-				assert.Equal(t, "bar", sm.Spec.Defaults.GcpSecretsManager.UniquePrefix, "secret.GcpSecretsManager.UniquePrefix")
+				assert.Equal(t, "foo", sm.Spec.GcpSecretsManager.ProjectID, "sm.Spec.Defaults.GcpSecretsManager.ProjectID")
+				assert.Equal(t, "bar", sm.Spec.GcpSecretsManager.UniquePrefix, "secret.GcpSecretsManager.UniquePrefix")
 			},
 		},
 		{
@@ -56,7 +56,7 @@ func TestCmdSecretsMappingEdit(t *testing.T) {
 					assert.Equal(t, "us-east-2", secret.AwsSecretsManager.Region, "secret.AwsSecretsManager.Region")
 				}
 
-				assert.Equal(t, "us-east-2", sm.Spec.Defaults.AwsSecretsManager.Region, "sm.Spec.Defaults.AwsSecretsManager.Region")
+				assert.Equal(t, "us-east-2", sm.Spec.AwsSecretsManager.Region, "sm.Spec.Defaults.AwsSecretsManager.Region")
 			},
 		},
 	}

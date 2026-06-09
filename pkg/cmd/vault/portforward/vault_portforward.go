@@ -43,13 +43,13 @@ func NewCmdPortForward() (*cobra.Command, *Options) {
 			helper.CheckErr(err)
 		},
 	}
-	o.Options.AddFlags(cmd)
+	o.AddFlags(cmd)
 	return cmd, o
 }
 
 // Run implements the command
 func (o *Options) Run() error {
-	o.Options.NoEditorWait = true
+	o.NoEditorWait = true
 	err := o.Options.Run()
 	if err != nil {
 		return errors.Wrapf(err, "failed to wait for vault")

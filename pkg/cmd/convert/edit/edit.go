@@ -114,8 +114,8 @@ func (o *Options) applyDefaults() error {
 	s := &o.SecretMapping
 
 	var err error
-	if s.Spec.Defaults.BackendType == v1alpha1.BackendTypeGSM {
-		s.Spec.Defaults.GcpSecretsManager, err = o.applyGSMDefaults(s.Spec.Defaults.GcpSecretsManager)
+	if s.Spec.BackendType == v1alpha1.BackendTypeGSM {
+		s.Spec.GcpSecretsManager, err = o.applyGSMDefaults(s.Spec.GcpSecretsManager)
 		if err != nil {
 			return errors.Wrapf(err, "failed to apply defaults to GcpSecretsManager")
 		}
@@ -131,8 +131,8 @@ func (o *Options) applyDefaults() error {
 		}
 	}
 
-	if s.Spec.Defaults.BackendType == v1alpha1.BackendTypeAzure {
-		s.Spec.Defaults.AzureKeyVaultConfig, err = o.applyAzureKeyVaultDefaults(s.Spec.Defaults.AzureKeyVaultConfig)
+	if s.Spec.BackendType == v1alpha1.BackendTypeAzure {
+		s.Spec.AzureKeyVaultConfig, err = o.applyAzureKeyVaultDefaults(s.Spec.AzureKeyVaultConfig)
 		if err != nil {
 			return errors.Wrapf(err, "failed to apply defaults to Azure Key Vault")
 		}
@@ -148,8 +148,8 @@ func (o *Options) applyDefaults() error {
 		}
 	}
 
-	if s.Spec.Defaults.BackendType == v1alpha1.BackendTypeAWSSecretsManager {
-		s.Spec.Defaults.AwsSecretsManager, err = o.applyASMDefaults(s.Spec.Defaults.AwsSecretsManager)
+	if s.Spec.BackendType == v1alpha1.BackendTypeAWSSecretsManager {
+		s.Spec.AwsSecretsManager, err = o.applyASMDefaults(s.Spec.AwsSecretsManager)
 		if err != nil {
 			return errors.Wrapf(err, "failed to apply defaults to AwsSecretsManager")
 		}

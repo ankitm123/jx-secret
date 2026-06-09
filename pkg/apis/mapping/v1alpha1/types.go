@@ -174,7 +174,7 @@ func (c *SecretMapping) FindRule(namespace, secretName string) *SecretRule {
 		}
 	}
 	return &SecretRule{
-		BackendType: c.Spec.Defaults.BackendType,
+		BackendType: c.Spec.BackendType,
 	}
 }
 

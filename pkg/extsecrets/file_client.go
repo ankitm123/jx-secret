@@ -33,7 +33,7 @@ func (c *fileClient) List(ns string) ([]*v1.ExternalSecret, error) {
 			log.Logger().Debugf("ignored file we could not decode it as a kubernetes resource: %s", err.Error())
 			continue
 		}
-		if ns == "" || es.ObjectMeta.Namespace == ns {
+		if ns == "" || es.Namespace == ns {
 			externalSecrets = append(externalSecrets, es)
 		}
 	}

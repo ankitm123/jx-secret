@@ -189,7 +189,7 @@ func (m *Client) LoadSecret(secret *corev1.Secret) error {
 func (m *Client) Mask(text string) string {
 	answer := text
 	for k, v := range m.ReplaceWords {
-		answer = strings.Replace(answer, k, v, -1)
+		answer = strings.ReplaceAll(answer, k, v)
 	}
 	return answer
 }
