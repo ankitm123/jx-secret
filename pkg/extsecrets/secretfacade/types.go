@@ -39,7 +39,7 @@ const FileSystem string = "filesystem"
 const Kubernetes string = "kubernetes"
 
 func (o *Options) AddFlags(cmd *cobra.Command) {
-	o.BaseOptions.AddBaseFlags(cmd)
+	o.AddBaseFlags(cmd)
 
 	cmd.Flags().StringVarP(&o.Filter, "filter", "f", "", "the filter to filter on ExternalSecret names")
 	cmd.Flags().StringVarP(&o.Source, "source", "s", "kubernetes", "the source location for the ExternalSecrets, valid values include filesystem or kubernetes")
@@ -69,7 +69,7 @@ func (o *Options) Validate() error {
 
 func (o *Options) ExternalSecretByName(secretName string) (*v1.ExternalSecret, error) {
 	for _, s := range o.ExternalSecrets {
-		if s.ObjectMeta.Name == secretName {
+		if s.Name == secretName {
 			return s, nil
 		}
 	}

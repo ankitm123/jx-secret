@@ -73,7 +73,7 @@ func CreateVaultEnv(kubeClient kubernetes.Interface) (map[string]string, error) 
 			return nil, err
 		}
 		caCertFile = filepath.Join(tmpDir, "vault-ca.crt")
-		err = os.WriteFile(caCertFile, []byte(caCert), files.DefaultFileWritePermissions)
+		err = os.WriteFile(caCertFile, []byte(caCert), files.DefaultFileWritePermissions) //nolint:gosec
 		if err != nil {
 			return nil, errors.Wrapf(err, "failed to save CA Cert file %s", caCertFile)
 		}

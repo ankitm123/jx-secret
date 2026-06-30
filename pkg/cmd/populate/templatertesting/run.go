@@ -49,11 +49,11 @@ func (r *Runner) Run(t *testing.T) {
 
 		fakeStore := fakeFactory.GetSecretStore()
 
-		o.Options.ExternalSecrets = []*v1.ExternalSecret{}
+		o.ExternalSecrets = []*v1.ExternalSecret{}
 		for k := range testcase.ExternalSecrets {
 			p := testcase.ExternalSecrets[k]
 			es := p.ExternalSecret
-			o.Options.ExternalSecrets = append(o.Options.ExternalSecrets, &es)
+			o.ExternalSecrets = append(o.ExternalSecrets, &es)
 			err := fakeStore.SetSecret(p.Location, p.Name, &p.Value)
 			assert.NoError(t, err)
 		}
@@ -134,11 +134,11 @@ func (r *Runner) Populate(t *testing.T) {
 
 		fakeStore := fakeFactory.GetSecretStore()
 
-		o.Options.ExternalSecrets = []*v1.ExternalSecret{}
+		o.ExternalSecrets = []*v1.ExternalSecret{}
 		for k := range tc.ExternalSecrets {
 			p := tc.ExternalSecrets[k]
 			es := p.ExternalSecret
-			o.Options.ExternalSecrets = append(o.Options.ExternalSecrets, &es)
+			o.ExternalSecrets = append(o.ExternalSecrets, &es)
 			err := fakeStore.SetSecret(p.Location, p.Name, &p.Value)
 			assert.NoError(t, err)
 		}
