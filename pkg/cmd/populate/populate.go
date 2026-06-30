@@ -36,7 +36,7 @@ import (
 
 var (
 	cmdLong = templates.LongDesc(`
-		Populates any missing secret values which can be automatically generated or that have default values"
+		Populates any missing secret values which can be automatically generated or that have default values
 `)
 
 	cmdExample = templates.Examples(`

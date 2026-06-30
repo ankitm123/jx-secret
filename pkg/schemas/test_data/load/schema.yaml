@@ -29,7 +29,7 @@ spec:
     properties:
     - name: confirm
       question: Do you want to configure non default Docker Registry?
-      help: By default Jenkins X will use the docker registry from the cloud provider. If you want to configure an external docker registry such as Docker Hub or your own existing public docker registry enter Y
+      help: By default JayeX will use the docker registry from the cloud provider. If you want to configure an external docker registry such as Docker Hub or your own existing public docker registry enter Y
     - name: url
       requires: jx-docker
       question: Docker Registry Url
